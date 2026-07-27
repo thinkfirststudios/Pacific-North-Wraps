@@ -1,0 +1,11 @@
+# GitHub Pages currently builds this repo from the branch root (the legacy
+# "pages build and deployment" builder), which ignores the exclusions in
+# .github/workflows/pages.yml. This keeps the retired pages and the stale
+# Apex-era screenshots out of the published site under that builder too.
+#
+# If the Pages source is switched to "GitHub Actions" in repo settings, the
+# workflow takes over and applies the same exclusions itself.
+exclude:
+  - Preview
+  - archive
+  - README.md
