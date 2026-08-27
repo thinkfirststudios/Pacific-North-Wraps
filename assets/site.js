@@ -1,16 +1,3 @@
-// ── CURSOR ──────────────────────────────────────
-const cur = document.getElementById('cur');
-const ring = document.getElementById('cur-ring');
-let mx=0,my=0,rx=0,ry=0;
-if(cur && window.matchMedia('(pointer:fine)').matches){
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
-  (function raf(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(raf)})();
-  document.querySelectorAll('a,button,.svc-card,.rev-card,.gal-item,.trust-card,.top-link,.kcard,.krev-card').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{cur.classList.add('big');ring.classList.add('big')});
-    el.addEventListener('mouseleave',()=>{cur.classList.remove('big');ring.classList.remove('big')});
-  });
-}
-
 // ── TOP NAV ──────────────────────────────────────
 const topNav = document.querySelector('.top-nav');
 const topLinks = document.querySelector('.top-links');
