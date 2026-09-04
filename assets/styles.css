@@ -235,7 +235,9 @@ a{color:inherit;text-decoration:none}
 .cta-body{font-size:.93rem;color:rgba(0,0,0,.68);line-height:1.65;margin-bottom:2.4rem;position:relative;max-width:380px}
 .btn-dark{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;background:#000;color:var(--orange);padding:.95rem 2.3rem;display:inline-block;transition:background .25s,box-shadow .25s,transform .2s;clip-path:polygon(11px 0%,100% 0%,calc(100% - 11px) 100%,0% 100%);position:relative}
 .btn-dark:hover{background:#1a1a1a;box-shadow:0 10px 30px rgba(0,0,0,.35);transform:translateY(-2px)}
-.cta-phone-big{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:.07em;color:#000;display:flex;align-items:center;gap:.4rem;margin-top:1.6rem;transition:opacity .25s;position:relative}
+.cta-actions{position:relative;display:flex;flex-direction:column;align-items:center;gap:.9rem;margin-top:.4rem}
+.cta-or{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(0,0,0,.45)}
+.cta-phone-big{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:.07em;color:#000;display:flex;align-items:center;gap:.4rem;transition:opacity .25s;position:relative}
 .cta-phone-big:hover{opacity:.7}
 .cta-phone-big svg{width:24px;height:24px;fill:#000;flex-shrink:0}
 @media(max-width:880px){.contact-inner{grid-template-columns:1fr;gap:3rem}}
@@ -270,10 +272,10 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.8rem cl
 /* ── PANEL 01 / HERO ─────────────────────────
    Full-bleed photo across the whole viewport with the copy laid over it.
    Swap the photo by changing the url() in .khero-photo. */
-.khero{min-height:calc(100vh - var(--nav-h));display:grid;grid-template-rows:1fr auto;position:relative;background:var(--bg)}
+.khero{display:grid;grid-template-rows:auto auto;position:relative;background:var(--bg)}
 
 /* photo layer */
-.khero-media{position:absolute;inset:0;overflow:hidden;z-index:0}
+.khero-media{grid-area:1/1;position:relative;overflow:hidden;z-index:0}
 .khero-photo{position:absolute;inset:0;background:url('../images/photo1.jpg') center/cover no-repeat}
 /* the copy sits dead-centre now, so the scrim is centre-weighted: a soft vignette
    for edge falloff plus a vertical fade that tucks under the nav and into the rail */
@@ -282,12 +284,12 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.8rem cl
   linear-gradient(to bottom,rgba(21,20,18,.66) 0%,rgba(21,20,18,.18) 26%,rgba(21,20,18,.22) 62%,rgba(21,20,18,.82) 100%)}
 
 /* copy layer */
-.khero-content{grid-row:1;position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(4rem,8vw,6rem) clamp(1.6rem,5vw,4.5rem) clamp(2.5rem,4vw,3.5rem)}
-.khero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,7.4vw,6.4rem);line-height:.92;letter-spacing:.03em;color:#fff;max-width:16ch;animation:fadeUp .8s ease both;text-shadow:0 2px 40px rgba(21,20,18,.8)}
+.khero-content{grid-area:1/1;position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(5rem,11vw,9rem) clamp(1.6rem,5vw,4.5rem) 0}
+.khero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,7.4vw,6.4rem);line-height:.92;letter-spacing:.03em;color:#fff;max-width:100%;animation:fadeUp .8s ease both;text-shadow:0 2px 40px rgba(21,20,18,.8)}
 .khero-title em{font-style:normal;color:var(--orange)}
 .khero-services{font-family:'Barlow Condensed',sans-serif;font-size:clamp(.86rem,2vw,1.25rem);font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#e8e2df;margin-top:1.35rem;animation:fadeUp .8s .12s ease both;text-shadow:0 2px 24px rgba(21,20,18,.8)}
 .khero-services .sep{color:var(--orange);margin:0 .5em}
-.khero-actions{display:flex;gap:1.4rem;align-items:center;justify-content:center;margin-top:2.3rem;flex-wrap:wrap;animation:fadeUp .8s .26s ease both}
+.khero-actions{display:flex;gap:1.4rem;align-items:stretch;justify-content:center;margin-top:2.3rem;flex-wrap:wrap;animation:fadeUp .8s .26s ease both}
 
 /* accent button reads on the photo; .kbtn-dark stays for the white panels */
 .kbtn-accent{background:var(--orange);color:#141210;padding:1.05rem 2.2rem;font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:.88rem;display:inline-flex;align-items:center;gap:.7rem;transition:background .25s,transform .2s,gap .25s,box-shadow .25s;border:none;cursor:pointer}
@@ -304,8 +306,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.8rem cl
 .khero-rail strong{color:var(--orange);font-weight:800}
 
 @media (max-width:880px){
-  .khero{min-height:auto}
-  .khero-content{padding-top:clamp(6rem,20vw,9rem);padding-bottom:clamp(4rem,12vw,6rem)}
+  .khero-content{padding-top:clamp(5rem,18vw,8rem);padding-bottom:0}
   .khero-scrim{background:linear-gradient(to bottom,rgba(21,20,18,.84) 0%,rgba(21,20,18,.58) 45%,rgba(21,20,18,.9) 100%)}
   .khero-services{letter-spacing:.18em}
   .khero-rail{gap:.5rem .9rem}
@@ -381,6 +382,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.8rem cl
 .kcta-mega em{font-style:normal;display:inline-block;transform:skewX(-8deg);color:var(--orange)}
 .kcta-sub{font-size:1rem;color:rgba(0,0,0,.72);line-height:1.7;max-width:540px;margin:1.5rem 0 2.4rem;position:relative}
 .kcta-actions{display:flex;gap:1.4rem;align-items:center;flex-wrap:wrap;position:relative}
+.kcta-or{font-family:'Barlow Condensed',sans-serif;font-size:.86rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(0,0,0,.5)}
 .kcta-phone{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:.05em;color:#000;display:flex;align-items:center;gap:.5rem;transition:opacity .25s;border-bottom:2px solid #000;padding-bottom:.2rem}
 .kcta-phone:hover{opacity:.7}
 .kcta-phone svg{width:24px;height:24px;fill:#000}
@@ -397,3 +399,69 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.8rem cl
   .kcta-sub,.kwhy-body p{font-size:.92rem}
   .kreviews-rating{font-size:1.3rem;gap:.7rem}
 }
+
+/* ═══════════════════════════════════════════════════════
+   REGION GATE + QUOTE MODAL
+   Both overlays are injected by assets/site.js so the markup
+   stays in one place instead of being copied into every page.
+═══════════════════════════════════════════════════════ */
+
+.ov{position:fixed;inset:0;z-index:900;display:flex;align-items:center;justify-content:center;padding:clamp(1rem,4vw,2.5rem);background:rgba(10,9,8,.86);backdrop-filter:blur(10px);opacity:0;transition:opacity .3s var(--ease)}
+.ov.in{opacity:1}
+body.ov-open{overflow:hidden}
+
+/* ── region gate ─────────────────────────── */
+.rg-card{width:min(560px,100%);background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--orange);padding:clamp(2rem,5vw,3.2rem);text-align:center;transform:translateY(14px);transition:transform .35s var(--ease)}
+.ov.in .rg-card{transform:none}
+.rg-card img{height:96px;width:auto;margin:0 auto 1.6rem}
+.rg-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--orange)}
+.rg-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.9rem,5vw,2.9rem);letter-spacing:.03em;line-height:1;color:var(--text);margin:.7rem 0 .5rem}
+.rg-h em{font-style:normal;color:var(--orange)}
+.rg-sub{font-size:.9rem;color:var(--muted);line-height:1.65;max-width:38ch;margin:0 auto 2rem}
+.rg-opts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.rg-opt{background:var(--bg);padding:1.7rem 1rem;cursor:pointer;border:none;transition:background .25s;display:flex;flex-direction:column;align-items:center;gap:.35rem;font-family:inherit}
+.rg-opt:hover{background:rgba(255,73,57,.1)}
+.rg-opt-name{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.04em;color:var(--text);line-height:1}
+.rg-opt:hover .rg-opt-name{color:var(--orange)}
+.rg-opt-sub{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+@media(max-width:460px){.rg-opts{grid-template-columns:1fr}}
+
+/* footer region switcher — the gate is one-time, so people need a way back */
+.rsw{display:inline-flex;align-items:center;gap:.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);background:transparent;border:1px solid var(--border);padding:.42rem .85rem;cursor:pointer;transition:color .25s,border-color .25s}
+.rsw:hover{color:var(--orange);border-color:var(--orange-border)}
+.rsw b{color:var(--muted);font-weight:700}
+.rsw:hover b{color:var(--orange)}
+
+/* ── quote modal ─────────────────────────── */
+.qm-card{width:min(660px,100%);max-height:calc(100vh - 3rem);overflow-y:auto;background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--orange);transform:translateY(14px);transition:transform .35s var(--ease)}
+.ov.in .qm-card{transform:none}
+.qm-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:clamp(1.6rem,4vw,2.2rem) clamp(1.4rem,4vw,2.2rem) 0}
+.qm-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.7rem,4vw,2.4rem);letter-spacing:.03em;line-height:1;color:var(--text)}
+.qm-h em{font-style:normal;color:var(--orange)}
+.qm-sub{font-size:.86rem;color:var(--muted);line-height:1.6;padding:.6rem clamp(1.4rem,4vw,2.2rem) 0;max-width:52ch}
+.qm-x{background:transparent;border:1px solid var(--border);color:var(--muted);width:34px;height:34px;flex-shrink:0;cursor:pointer;font-size:1.1rem;line-height:1;transition:color .25s,border-color .25s}
+.qm-x:hover{color:var(--orange);border-color:var(--orange-border)}
+.qm-form{padding:clamp(1.4rem,4vw,2.2rem);display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.qm-field{display:flex;flex-direction:column;gap:.4rem}
+.qm-field.wide{grid-column:1/-1}
+.qm-field label{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.qm-field label .req{color:var(--orange)}
+.qm-field input,.qm-field select,.qm-field textarea{background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'Barlow',sans-serif;font-size:.92rem;padding:.7rem .8rem;width:100%;transition:border-color .25s}
+.qm-field textarea{resize:vertical;min-height:88px}
+.qm-field input:focus,.qm-field select:focus,.qm-field textarea:focus{outline:none;border-color:var(--orange)}
+.qm-field select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 17px) 52%,calc(100% - 12px) 52%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:2.2rem}
+.qm-actions{grid-column:1/-1;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;margin-top:.4rem}
+.qm-note{grid-column:1/-1;font-size:.75rem;color:var(--dim);line-height:1.55}
+@media(max-width:560px){.qm-form{grid-template-columns:1fr}}
+
+/* preview confirmation — replaced with a real handler when forms go live */
+.qm-done{padding:clamp(2rem,5vw,3rem);text-align:center}
+.qm-done-mark{width:54px;height:54px;margin:0 auto 1.2rem;border:2px solid var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:1.5rem}
+.qm-done h4{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:.03em;color:var(--text);margin-bottom:.6rem}
+.qm-done p{font-size:.9rem;color:var(--muted);line-height:1.7;max-width:40ch;margin:0 auto 1.6rem}
+
+/* ── quote card (replaces the old price tables) ── */
+.quote-card-lead{font-size:.92rem;color:var(--muted);line-height:1.75;margin-bottom:1.5rem}
+.quote-card-list{list-style:none;margin:0 0 1.7rem}
+.quote-card-list li{position:relative;padding:.55rem 0 .55rem 1.5rem;font-size:.87rem;color:var(--text);border-bottom:1px solid var(--border)}
+.quote-card-list li::before{content:'';position:absolute;left:0;top:1rem;width:9px;height:2px;background:var(--orange)}

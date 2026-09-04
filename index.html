@@ -4,12 +4,12 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Pacific North Wraps — Vinyl Wrap · PPF · Ceramic Coating | Oregon</title>
-<meta name="description" content="Pacific North Wraps — the Pacific Northwest's premier wrap studio. Vinyl wrap, paint protection film, and ceramic coating in Oregon."/>
+<meta name="description" content="Pacific North Wraps — the Pacific Northwest's premier wrap studio. Vinyl wrap, paint protection film, and ceramic coating in Oregon and California."/>
 <link rel="icon" href="images/logo-mark.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="assets/styles.css?v=20260827"/>
+<link rel="stylesheet" href="assets/styles.css?v=20260904"/>
 </head>
 <body>
 
@@ -29,8 +29,6 @@
       </ul>
     </li>
     <li class="top-item"><a href="gallery.html" class="top-link">Gallery</a></li>
-    <li class="top-item"><a href="#why" class="top-link">Why Us</a></li>
-    <li class="top-item"><a href="#reviews" class="top-link">Reviews</a></li>
     <li class="top-item"><a href="contact.html" class="top-link">Contact</a></li>
   </ul>
   <button class="top-burger" aria-label="Menu">
@@ -39,7 +37,9 @@
 </nav>
 
 <!-- ═══════════════════════════════════════════
-     PANEL 01 / HERO — full-bleed photo
+     PANEL 01 / HERO
+     The photo shares a grid cell with the copy, so its bottom edge lands
+     level with the Explore Services button no matter how the text wraps.
      Swap the image in .khero-photo (assets/styles.css)
 ═══════════════════════════════════════════ -->
 <section class="kpanel khero">
@@ -49,7 +49,7 @@
   </div>
 
   <div class="khero-content">
-    <h1 class="khero-title">PNW'S PREMIER <em>WRAP STUDIO</em></h1>
+    <h1 class="khero-title" data-region="hero-title">PNW'S PREMIER<br><em>WRAP STUDIO</em></h1>
     <p class="khero-services">Wraps <span class="sep">|</span> PPF <span class="sep">|</span> Ceramic Coating</p>
     <div class="khero-actions">
       <a href="services.html" class="kbtn-accent">Explore Services <span>&rarr;</span></a>
@@ -58,14 +58,50 @@
   </div>
 
   <div class="khero-rail">
-    <span><strong>Oregon Built</strong></span>
+    <span><strong data-region="built">Oregon Built</strong></span>
     <span class="rail-dot"></span>
     <span>1-Year Workmanship Warranty</span>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════
-     PANEL 02 / SERVICES SHOWCASE
+     PANEL 02 / WHY US
+     Sits directly under the hero — first thing you meet on the scroll.
+═══════════════════════════════════════════ -->
+<section class="kpanel kwhy" id="why">
+  <div class="kwhy-stat rev-l">
+    <p class="kwhy-stat-eyebrow">Every Install, Backed</p>
+    <div class="kwhy-stat-num">1 YR</div>
+    <div class="kwhy-stat-lbl">WORKMANSHIP <em>WARRANTY.</em></div>
+    <div class="kwhy-substats">
+      <div>
+        <p class="kwhy-substat-num">03</p>
+        <p class="kwhy-substat-lbl">Service Lines</p>
+      </div>
+      <div>
+        <p class="kwhy-substat-num">PNW</p>
+        <p class="kwhy-substat-lbl">Built &amp; Based</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="kwhy-body rev-r">
+    <p class="k-eyebrow">Why Pacific North Wraps</p>
+    <h2 class="k-h2">BUILT FOR <em>NORTHWEST</em><br>ROADS.</h2>
+    <p>Nine months of rain, road grime, and gravel spray is a brutal test for paint. Everything we install is chosen and applied with that in mind &mdash; edge-wrapped seams that won't lift in the wet, film that shrugs off chip damage, and coatings that make a Tuesday downpour do the washing for you.</p>
+    <p>A wrap is only as good as the surface underneath it. Every job starts with a full decontamination and prep pass, and nothing gets rushed to make room for the next car.</p>
+    <p>Oregon-based, Pacific Northwest through and through &mdash; and we'd rather earn the next job than chase the quick one.</p>
+    <div class="kwhy-badges">
+      <span class="kwhy-badge">Vinyl Wrap</span>
+      <span class="kwhy-badge">PPF</span>
+      <span class="kwhy-badge">Ceramic Coating</span>
+      <span class="kwhy-badge">1-Year Warranty</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PANEL 03 / SERVICES SHOWCASE
 ═══════════════════════════════════════════ -->
 <section class="kpanel kservices">
   <div class="kservices-head rev">
@@ -105,89 +141,22 @@
 </section>
 
 <!-- ═══════════════════════════════════════════
-     PANEL 03 / WHY US
+     REVIEWS PANEL — hidden until Chris has real Google reviews.
+     The markup was removed rather than commented out; rebuild it from
+     .kreviews / .krev-card in assets/styles.css when the reviews exist.
 ═══════════════════════════════════════════ -->
-<section class="kpanel kwhy" id="why">
-  <div class="kwhy-stat rev-l">
-    <p class="kwhy-stat-eyebrow">Every Install, Backed</p>
-    <div class="kwhy-stat-num">1 YR</div>
-    <div class="kwhy-stat-lbl">WORKMANSHIP <em>WARRANTY.</em></div>
-    <div class="kwhy-substats">
-      <div>
-        <p class="kwhy-substat-num">03</p>
-        <p class="kwhy-substat-lbl">Service Lines</p>
-      </div>
-      <div>
-        <p class="kwhy-substat-num">PNW</p>
-        <p class="kwhy-substat-lbl">Built &amp; Based</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="kwhy-body rev-r">
-    <p class="k-eyebrow">Why Pacific North Wraps</p>
-    <h2 class="k-h2">BUILT FOR <em>NORTHWEST</em><br>ROADS.</h2>
-    <p>Nine months of rain, road grime, and gravel spray is a brutal test for paint. Everything we install is chosen and applied with that in mind &mdash; edge-wrapped seams that won't lift in the wet, film that shrugs off chip damage, and coatings that make a Tuesday downpour do the washing for you.</p>
-    <p>A wrap is only as good as the surface underneath it. Every job starts with a full decontamination and prep pass, and nothing gets rushed to make room for the next car.</p>
-    <p>Oregon-based, Pacific Northwest through and through &mdash; and we'd rather earn the next job than chase the quick one.</p>
-    <div class="kwhy-badges">
-      <span class="kwhy-badge">Vinyl Wrap</span>
-      <span class="kwhy-badge">PPF</span>
-      <span class="kwhy-badge">Ceramic Coating</span>
-      <span class="kwhy-badge">1-Year Warranty</span>
-    </div>
-  </div>
-</section>
 
 <!-- ═══════════════════════════════════════════
-     PANEL 04 / REVIEWS
-     PLACEHOLDER copy — swap for real Google reviews before launch
-═══════════════════════════════════════════ -->
-<section class="kpanel kreviews" id="reviews">
-  <div class="kreviews-head rev">
-    <div>
-      <p class="k-eyebrow">Real Customers</p>
-      <h2 class="k-h2" style="margin-top:.6rem">WHAT THE <em>NORTHWEST</em> SAYS.</h2>
-    </div>
-    <div class="kreviews-rating">
-      <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-      <span>4.9</span>
-      <small>/ Google Reviews</small>
-    </div>
-  </div>
-
-  <div class="krev-grid rev">
-    <div class="krev-card d1">
-      <p class="krev-num">01</p>
-      <div class="krev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="krev-text">"Satin black color change on my Tacoma and the results were insane. Clean install, zero bubbles, every edge tucked. Two winters in and it still looks like the day I picked it up."</p>
-      <p class="krev-author"><strong>Marcus T.</strong> &mdash; Portland, OR</p>
-    </div>
-    <div class="krev-card d2">
-      <p class="krev-num">02</p>
-      <div class="krev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="krev-text">"They wrapped our entire service fleet &mdash; eight vans &mdash; and every single one came out identical. Professional, fast, fair on pricing. Easiest vendor decision we've made."</p>
-      <p class="krev-author"><strong>Jamie R.</strong> &mdash; Beaverton, OR</p>
-    </div>
-    <div class="krev-card d3">
-      <p class="krev-num">03</p>
-      <div class="krev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="krev-text">"Full front-end PPF plus ceramic before a summer of Cascade road trips. Took a rock at highway speed on the way home and you genuinely cannot find where it hit."</p>
-      <p class="krev-author"><strong>Derek M.</strong> &mdash; Bend, OR</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════
-     PANEL 05 / FINAL CTA
+     PANEL 04 / FINAL CTA
 ═══════════════════════════════════════════ -->
 <section class="kpanel kcta">
   <p class="kcta-eyebrow">Book Your Build</p>
   <h2 class="kcta-mega">READY <em>?</em></h2>
   <p class="kcta-sub">Tell us what you're driving and what you're after &mdash; we'll line up a quote, walk you through the material options, and get you on the schedule.</p>
   <div class="kcta-actions">
-    <a href="contact.html" class="kbtn-dark">Get a Quote <span>&rarr;</span></a>
-    <a href="tel:5039490023" class="kcta-phone">
+    <a href="contact.html" class="kbtn-dark" data-quote>Get a Quote</a>
+    <span class="kcta-or">or</span>
+    <a href="tel:5039490023" class="kcta-phone" data-region="phone">
       <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
       (503) 949-0023
     </a>
@@ -199,7 +168,7 @@
   <a href="index.html" class="foot-logo">
     <img src="images/logo-full.png" alt="Pacific North Wraps"/>
   </a>
-  <p class="foot-copy">&copy; 2026 Pacific North Wraps &middot; Oregon &middot; PacNorthWraps.com</p>
+  <p class="foot-copy">&copy; 2026 Pacific North Wraps &middot; <span data-region="city">Coos Bay, Oregon</span> &middot; PacNorthWraps.com</p>
   <ul class="foot-links">
     <li><a href="services.html">Services</a></li>
     <li><a href="gallery.html">Gallery</a></li>
@@ -207,6 +176,6 @@
   </ul>
 </footer>
 
-<script src="assets/site.js?v=20260827"></script>
+<script src="assets/site.js?v=20260904"></script>
 </body>
 </html>

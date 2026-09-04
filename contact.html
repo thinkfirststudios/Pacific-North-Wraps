@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="assets/styles.css?v=20260827"/>
+<link rel="stylesheet" href="assets/styles.css?v=20260904"/>
 </head>
 <body>
 
@@ -29,8 +29,6 @@
       </ul>
     </li>
     <li class="top-item"><a href="gallery.html" class="top-link">Gallery</a></li>
-    <li class="top-item"><a href="index.html#why" class="top-link">Why Us</a></li>
-    <li class="top-item"><a href="index.html#reviews" class="top-link">Reviews</a></li>
     <li class="top-item"><a href="contact.html" class="top-link active">Contact</a></li>
   </ul>
   <button class="top-burger" aria-label="Menu">
@@ -56,14 +54,14 @@
             <div class="cinfo-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
             <div>
               <p class="cinfo-lbl">Location</p>
-              <p class="cinfo-val">Oregon<br><span style="font-size:.82rem;color:var(--muted)">Address coming soon</span></p>
+              <p class="cinfo-val" data-region="city">Coos Bay, Oregon</p>
             </div>
           </li>
           <li class="cinfo-item">
             <div class="cinfo-icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
             <div>
               <p class="cinfo-lbl">Phone</p>
-              <p class="cinfo-val"><a href="tel:5039490023">(503) 949-0023</a></p>
+              <p class="cinfo-val"><a href="tel:5039490023" data-region="phone">(503) 949-0023</a></p>
             </div>
           </li>
           <li class="cinfo-item">
@@ -90,12 +88,15 @@
       </div>
       <div class="cta-panel rev-r">
         <h3 class="cta-h3">REQUEST A<br>QUOTE</h3>
-        <p class="cta-body">Call us, tell us what you're driving and what you're after, and we'll handle the rest. Most quotes take about 10 minutes over the phone.</p>
-        <a href="tel:5039490023" class="btn-dark">Call Now &mdash; It's Free</a>
-        <a href="tel:5039490023" class="cta-phone-big">
-          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-          (503) 949-0023
-        </a>
+        <p class="cta-body">Tell us what you're driving and what you're after, and we'll handle the rest. Most quotes take about 10 minutes.</p>
+        <div class="cta-actions">
+          <a href="#quote" class="btn-dark" data-quote>Get a Quote</a>
+          <p class="cta-or">or</p>
+          <a href="tel:5039490023" class="cta-phone-big" data-region="phone">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            (503) 949-0023
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -105,7 +106,7 @@
   <a href="index.html" class="foot-logo">
     <img src="images/logo-full.png" alt="Pacific North Wraps"/>
   </a>
-  <p class="foot-copy">&copy; 2026 Pacific North Wraps &middot; Oregon &middot; PacNorthWraps.com</p>
+  <p class="foot-copy">&copy; 2026 Pacific North Wraps &middot; <span data-region="city">Coos Bay, Oregon</span> &middot; PacNorthWraps.com</p>
   <ul class="foot-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="services.html">Services</a></li>
@@ -113,6 +114,6 @@
   </ul>
 </footer>
 
-<script src="assets/site.js?v=20260827"></script>
+<script src="assets/site.js?v=20260904"></script>
 </body>
 </html>
