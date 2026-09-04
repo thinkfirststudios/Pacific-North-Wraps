@@ -284,7 +284,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.8rem cl
   linear-gradient(to bottom,rgba(21,20,18,.66) 0%,rgba(21,20,18,.18) 26%,rgba(21,20,18,.22) 62%,rgba(21,20,18,.82) 100%)}
 
 /* copy layer */
-.khero-content{grid-area:1/1;position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(5rem,11vw,9rem) clamp(1.6rem,5vw,4.5rem) 0}
+.khero-content{grid-area:1/1;position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(5rem,11vw,9rem) clamp(1.6rem,5vw,4.5rem) clamp(2.2rem,4vw,3.4rem)}
 .khero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,7.4vw,6.4rem);line-height:.92;letter-spacing:.03em;color:#fff;max-width:100%;animation:fadeUp .8s ease both;text-shadow:0 2px 40px rgba(21,20,18,.8)}
 .khero-title em{font-style:normal;color:var(--orange)}
 .khero-services{font-family:'Barlow Condensed',sans-serif;font-size:clamp(.86rem,2vw,1.25rem);font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#e8e2df;margin-top:1.35rem;animation:fadeUp .8s .12s ease both;text-shadow:0 2px 24px rgba(21,20,18,.8)}
@@ -306,7 +306,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.8rem cl
 .khero-rail strong{color:var(--orange);font-weight:800}
 
 @media (max-width:880px){
-  .khero-content{padding-top:clamp(5rem,18vw,8rem);padding-bottom:0}
+  .khero-content{padding-top:clamp(5rem,18vw,8rem);padding-bottom:clamp(1.8rem,6vw,2.6rem)}
   .khero-scrim{background:linear-gradient(to bottom,rgba(21,20,18,.84) 0%,rgba(21,20,18,.58) 45%,rgba(21,20,18,.9) 100%)}
   .khero-services{letter-spacing:.18em}
   .khero-rail{gap:.5rem .9rem}
