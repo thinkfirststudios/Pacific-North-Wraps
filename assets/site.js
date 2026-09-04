@@ -178,17 +178,16 @@ const saved = readRegion();
 applyRegion(saved || 'or');
 if (!saved) showRegionGate(false);
 
-// footer switcher, so a wrong pick isn't permanent
-document.querySelectorAll('footer .foot-links').forEach(ul => {
-  const li = document.createElement('li');
+// nav switcher, so a wrong pick isn't permanent
+const navHost = document.querySelector('.top-nav');
+if (navHost) {
   const btn = document.createElement('button');
   btn.className = 'rsw';
   btn.type = 'button';
-  btn.innerHTML = 'Viewing: <b>' + REGIONS[saved || 'or'].label + '</b>';
+  btn.innerHTML = '<span class="rsw-lbl">Viewing:</span> <b>' + REGIONS[saved || 'or'].label + '</b>';
   btn.addEventListener('click', () => showRegionGate(true));
-  li.appendChild(btn);
-  ul.appendChild(li);
-});
+  navHost.insertBefore(btn, navHost.querySelector('.top-burger'));
+}
 
 document.querySelectorAll('[data-quote]').forEach(el => {
   el.addEventListener('click', e => { e.preventDefault(); showQuoteModal(); });

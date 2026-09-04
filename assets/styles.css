@@ -52,7 +52,7 @@ a{color:inherit;text-decoration:none}
 .top-sub a:hover,.top-sub a.active{color:var(--orange);background:rgba(255,255,255,.03);padding-left:2rem}
 .top-sub a:hover::before,.top-sub a.active::before{opacity:1;width:12px;background:var(--orange)}
 
-.top-burger{display:none;background:transparent;border:none;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;padding:8px;margin-left:auto}
+.top-burger{display:none;background:transparent;border:none;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;padding:8px;margin-left:.5rem}
 .top-burger span{display:block;width:22px;height:2px;background:var(--text);transition:.3s}
 .top-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .top-burger.open span:nth-child(2){opacity:0}
@@ -465,3 +465,11 @@ body.ov-open{overflow:hidden}
 .quote-card-list{list-style:none;margin:0 0 1.7rem}
 .quote-card-list li{position:relative;padding:.55rem 0 .55rem 1.5rem;font-size:.87rem;color:var(--text);border-bottom:1px solid var(--border)}
 .quote-card-list li::before{content:'';position:absolute;left:0;top:1rem;width:9px;height:2px;background:var(--orange)}
+
+/* region switcher sits at the far right of the nav; on a phone the label goes
+   and just the state name rides next to the burger */
+.top-nav .rsw{margin-left:auto;flex-shrink:0}
+@media (max-width:900px){
+  .rsw{padding:.34rem .6rem;font-size:.64rem;letter-spacing:.12em}
+  .rsw-lbl{display:none}
+}
