@@ -192,6 +192,12 @@ a{color:inherit;text-decoration:none}
 .price-row .pl{font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
 .price-row .pv{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--orange);letter-spacing:.04em}
 .price-note{font-size:.78rem;color:var(--dim);line-height:1.6;margin-top:1.4rem;margin-bottom:1.6rem}
+/* Chris dropped the sticky quote card from every service page — the copy now
+   runs full width with a single Request a Quote button closing the page. */
+/* 640px keeps the measure near the ~66 characters the two-column layout
+   used to give it — full container width would run past 100. */
+.detail-inner.solo{grid-template-columns:1fr;gap:0;max-width:640px}
+.detail-cta{margin-top:3rem;padding-top:2.4rem;border-top:1px solid var(--border)}
 @media(max-width:880px){.detail-inner{grid-template-columns:1fr;gap:3rem}.price-card{position:static}}
 
 /* ─── GALLERY ─── */
@@ -265,6 +271,15 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.8rem cl
 .k-eyebrow.dark::before{background:#000}
 .k-h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.1rem,7vw,6.5rem);letter-spacing:.03em;line-height:.9;color:var(--text)}
 .k-h2 em{font-style:normal;display:inline-block;transform:skewX(-7deg);color:var(--orange);margin-left:.15em}
+/* Chris's "Built on passion, driven by excellence" line: all orange, and it
+   has to stay on ONE line. .kwhy-body is the query container, so the type
+   scales off the column width rather than the viewport — the column is ~half
+   the screen on desktop but full width on a phone, and a plain vw clamp can't
+   serve both. */
+.k-h2-accent{color:var(--orange)}
+.k-h2-accent em{color:var(--orange);transform:none;margin-left:0}
+.k-h2-oneline{white-space:nowrap;font-size:min(4.4rem,6.5cqi);max-width:100%;overflow:hidden}
+@supports not (font-size:1cqi){.k-h2-oneline{font-size:clamp(1rem,3.1vw,3.2rem)}}
 .k-h2.dark{color:#000}
 .k-h2.dark em{color:var(--orange)}
 .k-slant{display:inline-block;transform:skewX(-7deg)}
@@ -349,7 +364,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.8rem cl
 .kwhy-substat-num{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#000;letter-spacing:.04em;line-height:1}
 .kwhy-substat-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.6);margin-top:.2rem}
 
-.kwhy-body{padding:clamp(3rem,6vw,6rem) clamp(2rem,4vw,5rem);display:flex;flex-direction:column;justify-content:center;color:var(--text)}
+.kwhy-body{container-type:inline-size;padding:clamp(3rem,6vw,6rem) clamp(2rem,4vw,5rem);display:flex;flex-direction:column;justify-content:center;color:var(--text)}
 .kwhy-body .k-h2{margin:.7rem 0 1.8rem}
 .kwhy-body p{font-size:.96rem;color:var(--muted);line-height:1.85;margin-bottom:1.2rem;max-width:600px}
 .kwhy-badges{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:2rem}
@@ -452,7 +467,23 @@ body.ov-open{overflow:hidden}
 .qm-field select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 17px) 52%,calc(100% - 12px) 52%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:2.2rem}
 .qm-actions{grid-column:1/-1;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;margin-top:.4rem}
 .qm-note{grid-column:1/-1;font-size:.75rem;color:var(--dim);line-height:1.55}
-@media(max-width:560px){.qm-form{grid-template-columns:1fr}}
+/* photo upload — the native control is unreadable on a phone, so the real
+   input is hidden behind a styled label that still opens the camera roll */
+.qm-file{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;cursor:pointer}
+.qm-file input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
+.qm-file-btn{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);border:1px solid var(--orange-border);background:var(--orange-dim);padding:.6rem 1.1rem;flex-shrink:0;transition:background .25s}
+.qm-file:hover .qm-file-btn{background:rgba(255,73,57,.16)}
+.qm-file input:focus-visible+.qm-file-btn{border-color:var(--orange)}
+.qm-file-name{font-size:.78rem;color:var(--dim);line-height:1.5;word-break:break-word;min-width:0}
+
+@media(max-width:560px){
+  .qm-form{grid-template-columns:1fr}
+  /* iOS zooms the page on focus for anything under 16px */
+  .qm-field input,.qm-field select,.qm-field textarea{font-size:16px}
+  .qm-card{max-height:calc(100dvh - 1.5rem)}
+  .qm-actions .btn-primary{width:100%;text-align:center}
+  .qm-file-btn{width:100%;text-align:center}
+}
 
 /* preview confirmation — replaced with a real handler when forms go live */
 .qm-done{padding:clamp(2rem,5vw,3rem);text-align:center}

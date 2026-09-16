@@ -2,9 +2,9 @@
 // One site, two states. Everything that differs between Oregon and California
 // lives here — change a value once and it updates everywhere on the site.
 //
-// TODO (waiting on Chris): the California city and phone line don't exist yet,
-// so `ca` currently reuses the Oregon number and a state-only location. Swap in
-// the real values here the moment he has them — nothing else needs touching.
+// TODO (waiting on Chris): the California city still doesn't exist, so `ca`
+// falls back to a state-only location. The CA direct line is live as of his
+// Sept 9 notes — drop the city in here the moment he has it.
 const REGIONS = {
   or: {
     label: 'Oregon',
@@ -19,8 +19,8 @@ const REGIONS = {
     built: 'California Built',
     city: 'California',
     heroTitle: "CALIFORNIA'S PREMIER<br><em>WRAP STUDIO</em>",
-    phone: '(503) 949-0023',
-    tel: '5039490023'
+    phone: '(949) 480-7656',
+    tel: '9494807656'
   }
 };
 
@@ -54,6 +54,13 @@ function applyRegion(key) {
     } else if (cfg[field] !== undefined) {
       el.textContent = cfg[field];
     }
+  });
+
+  // Copy that only applies to one state — e.g. the Northwest-roads paragraph
+  // on the PPF page, which Chris wants hidden on the California side.
+  document.querySelectorAll('[data-region-only]').forEach(el => {
+    const only = el.getAttribute('data-region-only').split(/\s+/);
+    el.hidden = only.indexOf(key) === -1;
   });
 
   document.querySelectorAll('.rsw b').forEach(b => { b.textContent = cfg.label; });
@@ -115,6 +122,8 @@ function showRegionGate(forced) {
 // MOCKUP ONLY. Submissions are intercepted and show a preview confirmation.
 // When the site moves to Netlify, add `data-netlify="true"` plus a matching
 // hidden static form so Netlify can detect it, and drop the submit handler.
+// The photo field needs enctype="multipart/form-data" on the form for uploads
+// to actually come through — Netlify caps file uploads at 8MB per submission.
 const MAKES = ['Acura','Audi','BMW','Buick','Cadillac','Chevrolet','Chrysler','Dodge','Ford','Genesis','GMC','Honda','Hyundai','Infiniti','Jeep','Kia','Land Rover','Lexus','Lincoln','Mazda','Mercedes-Benz','Nissan','Porsche','Ram','Subaru','Tesla','Toyota','Volkswagen','Volvo'];
 
 function yearOptions() {
@@ -124,7 +133,9 @@ function yearOptions() {
   return out;
 }
 
-function showQuoteModal() {
+// `preset` is the service name to preselect — passed by the Request a Quote
+// button on each service page so people don't re-pick what they just clicked.
+function showQuoteModal(preset) {
   const ov = document.createElement('div');
   ov.className = 'ov';
   ov.innerHTML =
@@ -145,9 +156,15 @@ function showQuoteModal() {
         '<div class="qm-field"><label>Model</label><input name="model"/></div>' +
         '<div class="qm-field"><label>Current Color</label><input name="color"/></div>' +
         '<div class="qm-field wide"><label>What are you after? <span class="req">*</span></label><select name="service" required>' +
-          '<option value="">Select a service</option><option>Vinyl Wrap</option><option>PPF</option><option>Ceramic Coating</option><option>More than one</option><option>Not sure yet</option>' +
+          '<option value="">Select a service</option><option>Vinyl Wrap</option><option>PPF</option><option>Ceramic Coating</option><option>More than one</option>' +
         '</select></div>' +
         '<div class="qm-field wide"><label>Details</label><textarea name="details" placeholder="Finish, coverage, timing — whatever helps us price it."></textarea></div>' +
+        '<div class="qm-field wide"><label>Photos</label>' +
+          '<label class="qm-file">' +
+            '<input type="file" name="photos" accept="image/*" multiple/>' +
+            '<span class="qm-file-btn">Choose Photos</span>' +
+            '<span class="qm-file-name">Or take one now — helps us quote faster.</span>' +
+          '</label></div>' +
         '<div class="qm-actions"><button type="submit" class="btn-primary">Send Request</button></div>' +
         '<p class="qm-note">Prefer to talk it through? Call <a href="tel:5039490023" data-region="phone" style="color:var(--orange)">(503) 949-0023</a>.</p>' +
       '</form>' +
@@ -168,6 +185,22 @@ function showQuoteModal() {
       '</div>';
     card.querySelector('button').addEventListener('click', () => closeOverlay(ov));
   });
+
+  // Show what's been picked — a bare file input says nothing useful on a phone.
+  const fileInput = ov.querySelector('.qm-file input');
+  const fileName = ov.querySelector('.qm-file-name');
+  fileInput.addEventListener('change', () => {
+    const n = fileInput.files.length;
+    fileName.textContent = n === 0 ? 'Or take one now — helps us quote faster.'
+      : n === 1 ? fileInput.files[0].name
+      : n + ' photos selected';
+  });
+
+  if (preset) {
+    const sel = ov.querySelector('select[name="service"]');
+    const match = Array.prototype.find.call(sel.options, o => o.value === preset || o.text === preset);
+    if (match) sel.value = match.value || match.text;
+  }
 
   openOverlay(ov);
   applyRegion(readRegion() || 'or');
@@ -190,7 +223,10 @@ if (navHost) {
 }
 
 document.querySelectorAll('[data-quote]').forEach(el => {
-  el.addEventListener('click', e => { e.preventDefault(); showQuoteModal(); });
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    showQuoteModal(el.getAttribute('data-service'));
+  });
 });
 
 document.addEventListener('keydown', e => {
