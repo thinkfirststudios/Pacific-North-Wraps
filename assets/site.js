@@ -119,11 +119,11 @@ function showRegionGate(forced) {
 }
 
 // ── QUOTE MODAL ──────────────────────────────────
-// MOCKUP ONLY. Submissions are intercepted and show a preview confirmation.
-// When the site moves to Netlify, add `data-netlify="true"` plus a matching
-// hidden static form so Netlify can detect it, and drop the submit handler.
-// The photo field needs enctype="multipart/form-data" on the form for uploads
-// to actually come through — Netlify caps file uploads at 8MB per submission.
+// Wired to Netlify Forms. Submissions post to the site root as multipart so
+// the photo upload comes through; Netlify routes them by the form-name field.
+// index.html carries a hidden static copy of this form — Netlify only registers
+// forms it can find in the deployed HTML, and this one is built by script.
+// Netlify caps uploads at 8MB per submission.
 const MAKES = ['Acura','Audi','BMW','Buick','Cadillac','Chevrolet','Chrysler','Dodge','Ford','Genesis','GMC','Honda','Hyundai','Infiniti','Jeep','Kia','Land Rover','Lexus','Lincoln','Mazda','Mercedes-Benz','Nissan','Porsche','Ram','Subaru','Tesla','Toyota','Volkswagen','Volvo'];
 
 function yearOptions() {
@@ -145,7 +145,10 @@ function showQuoteModal(preset) {
         '<button class="qm-x" aria-label="Close">&times;</button>' +
       '</div>' +
       '<p class="qm-sub">Tell us what you\'re driving and what you\'re after. Most quotes come back the same day.</p>' +
-      '<form class="qm-form" name="quote">' +
+      '<form class="qm-form" name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data">' +
+        '<input type="hidden" name="form-name" value="quote"/>' +
+        '<input type="hidden" name="region" value="' + (readRegion() || 'or') + '"/>' +
+        '<p class="qm-hp"><label>Leave this empty <input name="bot-field"/></label></p>' +
         '<div class="qm-field"><label>First Name <span class="req">*</span></label><input name="first" required/></div>' +
         '<div class="qm-field"><label>Last Name <span class="req">*</span></label><input name="last" required/></div>' +
         '<div class="qm-field"><label>Email <span class="req">*</span></label><input type="email" name="email" required/></div>' +
@@ -176,14 +179,37 @@ function showQuoteModal(preset) {
 
   ov.querySelector('.qm-form').addEventListener('submit', e => {
     e.preventDefault();
-    card.innerHTML =
-      '<div class="qm-done">' +
-        '<div class="qm-done-mark">&#10003;</div>' +
-        '<h4>LOOKS GOOD</h4>' +
-        '<p>This is a preview of the quote form &mdash; live submissions switch on when the site launches.</p>' +
-        '<button class="btn-primary" type="button">Close</button>' +
-      '</div>';
-    card.querySelector('button').addEventListener('click', () => closeOverlay(ov));
+    const form = e.target;
+    const btn = form.querySelector('button[type="submit"]');
+    const phone = (REGIONS[readRegion() || 'or']).phone;
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    fetch('/', { method: 'POST', body: new FormData(form) })
+      .then(r => {
+        if (!r.ok) throw new Error(r.status);
+        card.innerHTML =
+          '<div class="qm-done">' +
+            '<div class="qm-done-mark">&#10003;</div>' +
+            '<h4>REQUEST SENT</h4>' +
+            '<p>Thanks &mdash; your details are in and we will come back to you shortly, usually the same day.</p>' +
+            '<button class="btn-primary" type="button">Close</button>' +
+          '</div>';
+        card.querySelector('button').addEventListener('click', () => closeOverlay(ov));
+      })
+      .catch(() => {
+        // Never strand someone mid-enquiry — give them the phone number.
+        btn.disabled = false;
+        btn.textContent = 'Send Request';
+        let err = form.querySelector('.qm-err');
+        if (!err) {
+          err = document.createElement('p');
+          err.className = 'qm-err';
+          form.querySelector('.qm-actions').appendChild(err);
+        }
+        err.innerHTML = 'That did not go through. Please try again, or call us on ' +
+          '<a href="tel:' + (REGIONS[readRegion() || 'or']).tel + '">' + phone + '</a>.';
+      });
   });
 
   // Show what's been picked — a bare file input says nothing useful on a phone.

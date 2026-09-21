@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="assets/styles.css?v=20260921b"/>
+<link rel="stylesheet" href="assets/styles.css?v=20260921c"/>
 </head>
 <body>
 
@@ -175,6 +175,30 @@
   </ul>
 </footer>
 
-<script src="assets/site.js?v=20260921b"></script>
+<!-- ═══════════════════════════════════════════
+     NETLIFY FORM DECLARATION
+     Netlify registers forms by parsing the deployed HTML at build time, and it
+     cannot see the quote form because assets/site.js builds it on the fly. This
+     hidden copy declares the same name and fields so real submissions are
+     accepted. Keep the field list in step with showQuoteModal().
+═══════════════════════════════════════════ -->
+<form name="quote" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" hidden>
+  <input type="hidden" name="form-name" value="quote"/>
+  <input name="bot-field"/>
+  <input name="first"/>
+  <input name="last"/>
+  <input type="email" name="email"/>
+  <input type="tel" name="phone"/>
+  <input name="year"/>
+  <input name="make"/>
+  <input name="model"/>
+  <input name="color"/>
+  <input name="service"/>
+  <textarea name="details"></textarea>
+  <input type="file" name="photos"/>
+  <input name="region"/>
+</form>
+
+<script src="assets/site.js?v=20260921c"></script>
 </body>
 </html>
