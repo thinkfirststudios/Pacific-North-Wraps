@@ -1,15 +1,15 @@
-# Netlify finds _config.yml in the repo root, assumes Jekyll, and fails at
-# `jekyll build` because there is no Gemfile. Pinning the build here overrides
-# that guess — this is a plain static site with nothing to compile.
+# This is a plain static site with nothing to compile, so the build is pinned
+# explicitly rather than left to Netlify's framework detection. (It used to
+# guess Jekyll from a _config.yml in the root and fail on every deploy for want
+# of a Gemfile; that file is gone, but pinning the build keeps it from guessing
+# wrong again.)
 #
-# _config.yml's exclude list is a Jekyll directive, so it means nothing to
-# Netlify. The copy below does the same job by hand, keeping the retired pages
-# and the stale screenshots out of the published site. Keep it in step with
-# .github/workflows/pages.yml.
+# The copy below is what keeps the retired pages and the stale screenshots out
+# of the published site.
 
 [build]
   publish = "_site"
-  command = "mkdir -p _site && tar --exclude=./.git --exclude=./.github --exclude=./_site --exclude=./Preview --exclude=./archive --exclude=./_config.yml --exclude=./netlify.toml --exclude=./desktop.ini --exclude=./.gitignore --exclude='./images/PNW cars' --exclude='./images/*.zip' -cf - . | tar -xf - -C _site"
+  command = "mkdir -p _site && tar --exclude=./.git --exclude=./.github --exclude=./_site --exclude=./Preview --exclude=./archive --exclude=./netlify.toml --exclude=./desktop.ini --exclude=./.gitignore --exclude='./images/PNW cars' --exclude='./images/*.zip' -cf - . | tar -xf - -C _site"
 
 # Hashed filenames aren't in play here — the CSS and JS carry ?v= query strings
 # instead — so let HTML revalidate every time and only cache the assets.
