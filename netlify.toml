@@ -1,0 +1,24 @@
+# Netlify finds _config.yml in the repo root, assumes Jekyll, and fails at
+# `jekyll build` because there is no Gemfile. Pinning the build here overrides
+# that guess — this is a plain static site with nothing to compile.
+#
+# _config.yml's exclude list is a Jekyll directive, so it means nothing to
+# Netlify. The copy below does the same job by hand, keeping the retired pages
+# and the stale screenshots out of the published site. Keep it in step with
+# .github/workflows/pages.yml.
+
+[build]
+  publish = "_site"
+  command = "mkdir -p _site && tar --exclude=./.git --exclude=./.github --exclude=./_site --exclude=./Preview --exclude=./archive --exclude=./_config.yml --exclude=./netlify.toml --exclude=./desktop.ini --exclude=./.gitignore --exclude='./images/PNW cars' --exclude='./images/*.zip' -cf - . | tar -xf - -C _site"
+
+# Hashed filenames aren't in play here — the CSS and JS carry ?v= query strings
+# instead — so let HTML revalidate every time and only cache the assets.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
