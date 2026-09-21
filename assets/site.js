@@ -210,6 +210,9 @@ function showQuoteModal(preset) {
 // One card per build on gallery.html; clicking it opens that car's set.
 // Paths resolve from the nav logo so this works from any folder depth.
 const ASSET_BASE = logoSrc.indexOf('../') === 0 ? '../' : '';
+// bumped when a photo is re-exported under the same name, so nobody keeps a
+// cached copy of an image we've since edited (plate blurring, for instance)
+const PHOTO_V = '?v=2';
 
 const GALLERY_SETS = {
   civic: {
@@ -280,7 +283,7 @@ function showLightbox(key, start) {
   set.photos.forEach(function (ph, n) {
     const t = document.createElement('button');
     t.className = 'lb-thumb';
-    t.style.backgroundImage = 'url("' + ASSET_BASE + 'images/gallery/' + ph[0] + '")';
+    t.style.backgroundImage = 'url("' + ASSET_BASE + 'images/gallery/' + ph[0] + PHOTO_V + '")';
     t.setAttribute('aria-label', 'Photo ' + (n + 1));
     t.addEventListener('click', function () { i = n; render(); });
     thumbs.appendChild(t);
@@ -288,7 +291,7 @@ function showLightbox(key, start) {
 
   function render() {
     const ph = set.photos[i];
-    img.src = ASSET_BASE + 'images/gallery/' + ph[0];
+    img.src = ASSET_BASE + 'images/gallery/' + ph[0] + PHOTO_V;
     img.alt = set.name + ' — ' + ph[1];
     cap.textContent = ph[1];
     count.textContent = (i + 1) + ' / ' + set.photos.length;
@@ -309,7 +312,7 @@ function showLightbox(key, start) {
   });
 
   // preload the neighbours so paging doesn't flash
-  set.photos.forEach(function (ph) { new Image().src = ASSET_BASE + 'images/gallery/' + ph[0]; });
+  set.photos.forEach(function (ph) { new Image().src = ASSET_BASE + 'images/gallery/' + ph[0] + PHOTO_V; });
 
   render();
   openOverlay(ov);
@@ -340,7 +343,7 @@ document.querySelectorAll('.gal-item[data-set]').forEach(el => {
   const set = GALLERY_SETS[key];
   if (!set) return;
   const bg = el.querySelector('.gal-bg');
-  if (bg) bg.style.backgroundImage = 'url("' + ASSET_BASE + 'images/gallery/' + (set.cover || set.photos[0][0]) + '")';
+  if (bg) bg.style.backgroundImage = 'url("' + ASSET_BASE + 'images/gallery/' + (set.cover || set.photos[0][0]) + PHOTO_V + '")';
   el.addEventListener('click', () => showLightbox(key, 0));
 });
 
