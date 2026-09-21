@@ -206,6 +206,117 @@ function showQuoteModal(preset) {
   applyRegion(readRegion() || 'or');
 }
 
+// ── GALLERY LIGHTBOX ─────────────────────────────
+// One card per build on gallery.html; clicking it opens that car's set.
+// Paths resolve from the nav logo so this works from any folder depth.
+const ASSET_BASE = logoSrc.indexOf('../') === 0 ? '../' : '';
+
+const GALLERY_SETS = {
+  civic: {
+    name: 'Honda Civic',
+    sub: 'Gloss White Color Change',
+    cover: 'civic-05-after.jpg',
+    photos: [
+      ['civic-01-before.jpg', 'Factory black, before we started'],
+      ['civic-02-before-rear.jpg', 'Original paint, rear three-quarter'],
+      ['civic-03-progress.jpg', 'Mid-wrap — rear quarter and bumper laid in'],
+      ['civic-04-progress-bay.jpg', 'Roof and glass panel going on in the bay'],
+      ['civic-05-after.jpg', 'Finished in gloss white'],
+      ['civic-06-after-rear.jpg', 'Every edge tucked, back on the road']
+    ]
+  },
+  z4: {
+    name: 'BMW Z4 M40i',
+    sub: 'Gloss Purple Color Change',
+    photos: [
+      ['z4-01-front.jpg', 'Finished and ready for pickup'],
+      ['z4-02-detail.jpg', 'Front quarter — colour shifting in the light'],
+      ['z4-03-rear.jpg', 'Rear three-quarter at golden hour'],
+      ['z4-04-progress.jpg', 'Deck lid open, working the rear panels'],
+      ['z4-05-progress-bay.jpg', 'In the bay, panels apart']
+    ]
+  },
+  s8: {
+    name: '2003 Audi S8',
+    sub: 'Gloss Purple Color Change',
+    photos: [
+      ['s8-01-front.jpg', 'Finished front three-quarter'],
+      ['s8-02-profile.jpg', 'Full profile in the sun'],
+      ['s8-03-rear.jpg', 'Rear three-quarter']
+    ]
+  }
+};
+
+function showLightbox(key, start) {
+  const set = GALLERY_SETS[key];
+  if (!set) return;
+  let i = start || 0;
+
+  const ov = document.createElement('div');
+  ov.className = 'ov';
+  ov.innerHTML =
+    '<div class="lb-card">' +
+      '<div class="lb-head">' +
+        '<h3 class="lb-title">' + set.name + '<span>' + set.sub + '</span></h3>' +
+        '<button class="lb-x" aria-label="Close">&times;</button>' +
+      '</div>' +
+      '<div class="lb-stage">' +
+        '<button class="lb-nav lb-prev" aria-label="Previous">&#8249;</button>' +
+        '<img alt=""/>' +
+        '<button class="lb-nav lb-next" aria-label="Next">&#8250;</button>' +
+      '</div>' +
+      '<div class="lb-foot">' +
+        '<p class="lb-cap"></p>' +
+        '<p class="lb-count"></p>' +
+      '</div>' +
+      '<div class="lb-thumbs"></div>' +
+    '</div>';
+
+  const img = ov.querySelector('.lb-stage img');
+  const cap = ov.querySelector('.lb-cap');
+  const count = ov.querySelector('.lb-count');
+  const thumbs = ov.querySelector('.lb-thumbs');
+
+  set.photos.forEach(function (ph, n) {
+    const t = document.createElement('button');
+    t.className = 'lb-thumb';
+    t.style.backgroundImage = 'url("' + ASSET_BASE + 'images/gallery/' + ph[0] + '")';
+    t.setAttribute('aria-label', 'Photo ' + (n + 1));
+    t.addEventListener('click', function () { i = n; render(); });
+    thumbs.appendChild(t);
+  });
+
+  function render() {
+    const ph = set.photos[i];
+    img.src = ASSET_BASE + 'images/gallery/' + ph[0];
+    img.alt = set.name + ' — ' + ph[1];
+    cap.textContent = ph[1];
+    count.textContent = (i + 1) + ' / ' + set.photos.length;
+    Array.prototype.forEach.call(thumbs.children, function (t, n) {
+      t.classList.toggle('on', n === i);
+    });
+  }
+  function step(d) { i = (i + d + set.photos.length) % set.photos.length; render(); }
+
+  ov.querySelector('.lb-prev').addEventListener('click', function () { step(-1); });
+  ov.querySelector('.lb-next').addEventListener('click', function () { step(1); });
+  ov.querySelector('.lb-x').addEventListener('click', function () { closeOverlay(ov); });
+  ov.addEventListener('click', function (e) { if (e.target === ov) closeOverlay(ov); });
+
+  ov.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
+
+  // preload the neighbours so paging doesn't flash
+  set.photos.forEach(function (ph) { new Image().src = ASSET_BASE + 'images/gallery/' + ph[0]; });
+
+  render();
+  openOverlay(ov);
+  ov.setAttribute('tabindex', '-1');
+  ov.focus();
+}
+
 // ── BOOT ─────────────────────────────────────────
 const saved = readRegion();
 applyRegion(saved || 'or');
@@ -222,6 +333,17 @@ if (navHost) {
   navHost.insertBefore(btn, navHost.querySelector('.top-burger'));
 }
 
+
+// gallery cards: cover art comes from the first photo in each set
+document.querySelectorAll('.gal-item[data-set]').forEach(el => {
+  const key = el.getAttribute('data-set');
+  const set = GALLERY_SETS[key];
+  if (!set) return;
+  const bg = el.querySelector('.gal-bg');
+  if (bg) bg.style.backgroundImage = 'url("' + ASSET_BASE + 'images/gallery/' + (set.cover || set.photos[0][0]) + '")';
+  el.addEventListener('click', () => showLightbox(key, 0));
+});
+
 document.querySelectorAll('[data-quote]').forEach(el => {
   el.addEventListener('click', e => {
     e.preventDefault();
@@ -232,7 +354,7 @@ document.querySelectorAll('[data-quote]').forEach(el => {
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
   const ov = document.querySelector('.ov');
-  if (ov && ov.querySelector('.qm-card')) closeOverlay(ov);
+  if (ov && (ov.querySelector('.qm-card') || ov.querySelector('.lb-card'))) closeOverlay(ov);
 });
 
 // ── TOP NAV ──────────────────────────────────────
